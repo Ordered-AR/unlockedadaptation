@@ -1,0 +1,16 @@
+# Position Order - Random Configuration
+# Random token ordering for order-agnostic generation
+
+position_order:
+  mode: random
+  transition_epochs: 0  # not used for pure random
+
+model:
+  position_order: random
+
+# Training recommendations
+training:
+  epochs: 300
+
+# This config is for pure random ordering
+# Use with train_c2i_position_order.py script

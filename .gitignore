@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# local artifacts
+results/
+samples/
+pretrained/
+*.pt
+*.npz
+*.pb
+
+# environments
+.env
+.venv
+venv/
+
+# editors
+.vscode/
+.idea/
+.DS_Store

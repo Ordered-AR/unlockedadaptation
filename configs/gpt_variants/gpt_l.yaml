@@ -1,0 +1,31 @@
+# GPT-L (Large) Model Configuration
+# 343M parameters
+
+model:
+  gpt_model: GPT-L
+  n_layer: 24
+  n_head: 16
+  dim: 1024
+  multiple_of: 256
+  
+# Recommended training settings for GPT-L
+training:
+  global_batch_size: 512
+  epochs: 300
+  gradient_accumulation_steps: 1
+  
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.05
+  
+lr_scheduler:
+  type: cosine
+  warmup_steps: 5000
+  min_lr_ratio: 0.05
+  
+# Resource requirements (for documentation)
+resources:
+  min_gpus: 4
+  recommended_gpus: 8
+  min_gpu_memory_gb: 24
+  estimated_training_time_hours: 72  # on 8x A100

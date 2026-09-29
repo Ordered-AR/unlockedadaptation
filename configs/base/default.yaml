@@ -1,0 +1,79 @@
+# Base configuration for all LlamaGen models
+# This file contains default values that can be overridden by variant-specific configs or CLI arguments
+
+# Model architecture (will be overridden by variant configs)
+model:
+  gpt_type: c2i  # 'c2i' or 't2i'
+  vocab_size: 16384
+  block_size: 256  # latent_size ** 2 (16x16 for 256px images with 16x downsampling)
+  num_classes: 1000
+  cls_token_num: 1
+  resid_dropout_p: 0.1
+  ffn_dropout_p: 0.1
+  token_dropout_p: 0.1
+  drop_path_rate: 0.0
+  compile: True  # torch.compile for faster training
+  
+# Position ordering (for position_order models)
+position_order:
+  mode: random  # 'random', 'raster', or 'scheduled'
+  transition_epochs: 100  # for 'scheduled' mode: epochs to transition from raster to random
+  
+# Dataset configuration
+dataset:
+  name: imagenet_code
+  image_size: 256
+  downsample_size: 16
+  num_workers: 8
+  
+# Training hyperparameters
+training:
+  epochs: 300
+  global_batch_size: 256
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  mixed_precision: bf16  # 'none', 'fp16', or 'bf16'
+  global_seed: 0
+  
+# Optimizer configuration
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.05
+  beta1: 0.9
+  beta2: 0.95
+  
+# Learning rate scheduler
+lr_scheduler:
+  type: constant  # 'constant', 'linear', 'cosine', 'polynomial', etc.
+  warmup_steps: 0
+  min_lr_ratio: 0.05  # for cosine scheduler
+  lr_end: 1.0e-7  # for polynomial/exponential scheduler
+  power: 1.0  # for polynomial scheduler
+  
+# EMA configuration
+ema:
+  enabled: False
+  decay: 0.9999
+  
+# Logging and checkpointing
+logging:
+  log_every: 100
+  ckpt_every: 5000
+  no_local_save: False  # set True to save only to cloud
+  
+# Weights & Biases
+wandb:
+  enabled: False
+  project: llamagen
+  entity: null
+  run_name: null  # auto-generated if null
+  log_images_every: 5000  # 0 to disable
+  
+# Paths (usually overridden by CLI or cluster-specific configs)
+paths:
+  code_path: /path/to/imagenet_codes  # REQUIRED: override this
+  cloud_save_path: /path/to/checkpoints  # REQUIRED: override this
+  results_dir: results
+  resume_dir: null  # path to checkpoint directory for resuming
+  gpt_ckpt: null  # path to old-format checkpoint file
+  reset_optimizer: False  # reset optimizer when loading checkpoint

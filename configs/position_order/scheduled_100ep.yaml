@@ -1,0 +1,23 @@
+# Position Order - Scheduled Configuration
+# Curriculum learning: gradually transition from raster to random
+
+position_order:
+  mode: scheduled
+  transition_epochs: 100  # linearly transition over first 100 epochs
+
+model:
+  position_order: scheduled
+
+# Training recommendations
+training:
+  epochs: 300  # total training epochs (100 transition + 200 random)
+
+lr_scheduler:
+  type: cosine
+  warmup_steps: 5000
+  min_lr_ratio: 0.05
+
+# This config implements curriculum learning
+# Epochs 0-99: Linearly transition from 100% raster to 100% random
+# Epochs 100+: Pure random ordering
+# Use with train_c2i_position_order.py script

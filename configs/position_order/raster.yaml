@@ -1,0 +1,16 @@
+# Position Order - Raster Configuration
+# Standard raster scan ordering (left-to-right, top-to-bottom)
+
+position_order:
+  mode: raster
+  transition_epochs: 0  # not used for pure raster
+
+model:
+  position_order: raster
+
+# Training recommendations
+training:
+  epochs: 300
+
+# This config is for standard raster ordering
+# Use with train_c2i_position_order.py script

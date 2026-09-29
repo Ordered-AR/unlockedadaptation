@@ -1,0 +1,30 @@
+# GPT-B (Base) Model Configuration
+# 111M parameters
+
+model:
+  gpt_model: GPT-B
+  n_layer: 12
+  n_head: 12
+  dim: 768
+  multiple_of: 256
+  
+# Recommended training settings for GPT-B
+training:
+  global_batch_size: 256
+  epochs: 300
+  
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.05
+  
+lr_scheduler:
+  type: cosine
+  warmup_steps: 1000
+  min_lr_ratio: 0.05
+  
+# Resource requirements (for documentation)
+resources:
+  min_gpus: 1
+  recommended_gpus: 4
+  min_gpu_memory_gb: 16
+  estimated_training_time_hours: 48  # on 4x A100

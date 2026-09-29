@@ -1,0 +1,31 @@
+# GPT-XL (Extra Large) Model Configuration
+# 775M parameters
+
+model:
+  gpt_model: GPT-XL
+  n_layer: 36
+  n_head: 20
+  dim: 1280
+  multiple_of: 256
+  
+# Recommended training settings for GPT-XL
+training:
+  global_batch_size: 640
+  epochs: 300
+  gradient_accumulation_steps: 1
+  
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.05
+  
+lr_scheduler:
+  type: cosine
+  warmup_steps: 5000
+  min_lr_ratio: 0.05
+  
+# Resource requirements (for documentation)
+resources:
+  min_gpus: 8
+  recommended_gpus: 16
+  min_gpu_memory_gb: 40
+  estimated_training_time_hours: 120  # on 16x A100

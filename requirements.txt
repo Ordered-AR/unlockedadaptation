@@ -1,0 +1,26 @@
+# Core
+torch>=2.1.0
+torchvision
+numpy
+pillow
+tqdm
+
+# Config system (configs/*.yaml)
+pyyaml>=6.0
+omegaconf>=2.3.0
+
+# Training
+wandb>=0.16.0
+
+# Sampling / visualization
+matplotlib
+
+# Checkpoint interop
+huggingface_hub
+
+# Evaluation (evaluations/c2i)
+tensorflow
+scipy
+
+# Fast vLLM-backed sampling (autoregressive/serve) — optional
+# vllm==0.13.0

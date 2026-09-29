@@ -1,12 +1,6 @@
 MIT License
 
-Copyright (c) 2024 FoundationVision (base LlamaGen architecture and tokenizer,
-tokenizer/tokenizer_image/vq_model.py, autoregressive/models/gpt.py,
-autoregressive/models/generate.py)
-
-Copyright (c) 2026 Rishav Pramanik, Marco Pedersoli, Zhaozheng Yin
-(position-order adaptation: future-aware positional embeddings, ordering
-curriculum, and all other files in this repository)
+Copyright (c) 2026 Rishav Pramanik
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -113,12 +113,6 @@ Checks the inverse-permutation math, identity-order no-op behavior, order-seed
 determinism, and that inference-time RoPE indexing matches the training-time
 reordering — the invariants the adapted model depends on.
 
-## License
-
-MIT — see [LICENSE](LICENSE). The base LlamaGen architecture and tokenizer
-(`autoregressive/models/gpt.py`, `generate.py`,
-`tokenizer/tokenizer_image/vq_model.py`) retain their original FoundationVision
-copyright; the position-order adaptation is released under the same terms.
 
 ## Citation
 

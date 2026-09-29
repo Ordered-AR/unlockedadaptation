@@ -1,4 +1,4 @@
-# unlockedadaptation
+# Unlocking Any-Order Generation in Pretrained Autoregressive Image Models
 
 Adapts a pretrained raster-scan [LlamaGen](https://arxiv.org/abs/2406.06525)
 checkpoint into an any-order autoregressive image generator, via a short

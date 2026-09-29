@@ -88,9 +88,19 @@ scripts/                    # example commands for each workflow below
 pip install -r requirements.txt
 ```
 
-Start from a pretrained raster-scan LlamaGen checkpoint (`FoundationVision/LlamaGen`
-on HuggingFace: `vq_ds16_c2i.pt` for the tokenizer, `c2i_{B,L,XL}_{256,384}.pt`
-for the base GPT).
+To adapt a checkpoint yourself, start from a pretrained raster-scan LlamaGen
+checkpoint (`FoundationVision/LlamaGen` on HuggingFace: `vq_ds16_c2i.pt` for
+the tokenizer, `c2i_{B,L,XL}_{256,384}.pt` for the base GPT).
+
+## Pretrained checkpoints
+
+Already-adapted position-order checkpoints (`gpt_position_order.py`, ready to
+use with the sampling/inpainting/outpainting scripts below):
+
+- [orderar/ar-transform-position-order-gpt-l-256](https://huggingface.co/orderar/ar-transform-position-order-gpt-l-256) — GPT-L, 256x256
+- [orderar/ar-transform-position-order-gpt-xl-384](https://huggingface.co/orderar/ar-transform-position-order-gpt-xl-384) — GPT-XL, 384x384
+
+Pair either with the base LlamaGen VQ-16 tokenizer (`vq_ds16_c2i.pt`) above.
 
 ## Workflow
 

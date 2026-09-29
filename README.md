@@ -1,52 +1,19 @@
-# Unlocking Any-Order Generation in Pretrained Autoregressive Image Models
+# unlockedadaptation
 
-A standard autoregressive (AR) image model is trained to generate tokens in a
-fixed raster-scan order, which hardcodes a single factorization of the image
-distribution into the model and leaves it unable to inpaint, outpaint, or
-edit at inference time. Existing any-order approaches (permutation LMs,
-discrete diffusion) get around this by training from scratch on a mixture of
-orderings, at roughly 3x the compute of standard AR pretraining — and
-discrete diffusion additionally gives up the AR inference ecosystem (KV
-caching, vLLM) by construction.
+Adapts a pretrained raster-scan [LlamaGen](https://arxiv.org/abs/2406.06525)
+checkpoint into an any-order autoregressive image generator, via a short
+continued-training phase that adds a future-aware positional embedding and
+an ordering curriculum (`--position-order {random, raster, scheduled}`) to
+the existing architecture. The adapted model supports sampling under
+arbitrary token orders, and inpainting/outpainting/region-conditioned
+editing as direct instances of conditional generation, without a
+task-specific head or additional retraining. Architecture, tokenizer, and
+inference stack (KV caching, parallel decoding, vLLM serving) are otherwise
+unchanged from the base model.
 
-This repository adapts an already-pretrained, raster-scan
-[LlamaGen](https://arxiv.org/abs/2406.06525) checkpoint into an any-order
-generator with two lightweight components:
-
-1. **Future-aware positional embeddings** — a learned embedding of the *next*
-   target position, added to the input at each step. This resolves a
-   target-position identifiability problem that appears the moment you leave
-   raster order (the same visible context implies different conditional
-   distributions depending on which token you're asked to predict next),
-   without XLNet-style two-stream attention: no architecture change, no extra
-   sequence length, full compatibility with KV caching.
-2. **An ordering curriculum** — training permutations are sampled from a
-   mixture that interpolates from raster order to uniform-random order over
-   the course of adaptation. Jumping straight to uniform-random permutations
-   from a raster-pretrained checkpoint produces large, inconsistent gradients
-   that push the model out of its pretrained basin; the curriculum traces a
-   stable path from the pretrained solution to a good any-order basin.
-
-Because the adapted model is still a standard causal single-stream
-transformer, it keeps the whole AR inference stack: KV caching, parallel
-decoding, and direct integration with vLLM. Inpainting, outpainting, and
-region-conditioned editing fall out as direct instances of conditional
-generation — feed the known tokens first, sample the rest in any order — with
-no task-specific heads or retraining.
-
-Applied to LlamaGen-L/XL, adaptation costs ≈1.25x the original pretraining
-run and:
-
-| Task | This method (FID↓) | MaskGIT (FID↓) |
-|---|---|---|
-| Inpainting | 6.21 | 10.44 |
-| Outpainting | 5.84 | 12.17 |
-
-while preserving generation quality close to the pretrained checkpoint and
-enabling a 4x reduction in forward passes via parallel decoding at no
-measurable FID cost.
-
----
+Implementation and experiments for *Unlocking Any-Order Generation in
+Pretrained Autoregressive Image Models* (NeurIPS 2026); see
+[Citation](#citation) below.
 
 ## Repo layout
 
@@ -125,8 +92,8 @@ paper); see [`configs/`](configs/) for per-size and per-strategy defaults.
 script through the unmodified pretrained raster model as a sanity check —
 inpainting fails on it by construction.
 
-**5. Parallel decoding** — trade forward passes for wall-clock time at
-near-zero FID cost: [`scripts/sample_parallel_decoding.sh`](scripts/sample_parallel_decoding.sh).
+**5. Parallel decoding** — sample multiple tokens per forward pass instead of one:
+[`scripts/sample_parallel_decoding.sh`](scripts/sample_parallel_decoding.sh).
 
 **6. Fast serving with vLLM**:
 [`scripts/serve_vllm.sh`](scripts/serve_vllm.sh); see

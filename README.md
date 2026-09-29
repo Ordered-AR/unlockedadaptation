@@ -152,3 +152,14 @@ MIT — see [LICENSE](LICENSE). The base LlamaGen architecture and tokenizer
 (`autoregressive/models/gpt.py`, `generate.py`,
 `tokenizer/tokenizer_image/vq_model.py`) retain their original FoundationVision
 copyright; the position-order adaptation is released under the same terms.
+
+## Citation
+
+```bibtex
+@inproceedings{pramanik2026unlocking,
+  title     = {Unlocking Any-Order Generation in Pretrained Autoregressive Image Models},
+  author    = {Pramanik, Rishav and Pedersoli, Marco and Yin, Zhaozheng},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
+}
+```

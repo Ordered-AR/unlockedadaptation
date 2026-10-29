@@ -1,4 +1,4 @@
-# Unlocking Any-Order Generation in Pretrained Autoregressive Image Models
+# Unlocking Any-Order Generation in Pretrained Autoregressive Image Models (NeurIPS 2026)
 
 Adapts a pretrained raster-scan [LlamaGen](https://arxiv.org/abs/2406.06525)
 checkpoint into an any-order autoregressive image generator, via a short
